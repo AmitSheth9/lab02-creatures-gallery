@@ -7,11 +7,20 @@ import './App.css';
 
 export default class App extends Component {
   state = {keyword: ''}
+  
   handleChange = (e) => {
     console.log(e.target.value)
     this.setState({keyword: e.target.value})
+
+ 
   }
   render() {
+    const filterImages = images.filter(image => {
+      if(this.state.keyword === '')
+      return true;
+      else 
+      return (image.keyword === this.state.keyword)
+    })
     return (
       <div>
         <header>Pick a creature keyword from the dropdwon</header>
@@ -28,14 +37,13 @@ export default class App extends Component {
     <option value='chameleon'>Chameleon</option>
     <option value='lizard'>Lizard</option>
     <option value='dragon'>Dragon</option>
-    <option value='all'>All</option>
+    <option value=''>All</option>
     </select>
 
     <ul>
 
-  
-      {images.filter(image => {
-        return image.keyword === this.state.keyword}).map(image => 
+      
+      {filterImages.map(image => 
         <li key={images.indexOf(image)}>
         <img src={image.url} alt=''/>
         <p>{image.title} { }
