@@ -23,18 +23,18 @@ export default class App extends Component {
 
 
   render() {
-   
-      const filterImages = images.filter(image => {
-      if(this.state.keyword === '' )
+   const filterImages = images.filter(image => {
+     
+      if (this.state.keyword === '' && this.state.horns === '')
       return true;
+      else if(this.state.horns === '')
+      return (image.keyword=== this.state.keyword)
+      if (this.state.keyword === '' && this.state.horns !== '')
+      return (image.horns === Number(this.state.horns))
       else 
       return (image.keyword === this.state.keyword && image.horns === Number(this.state.horns))
         })
 
-
-
-
-    
     const keywordAll = images.map(image => {
       return image.keyword
     });
