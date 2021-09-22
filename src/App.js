@@ -44,7 +44,7 @@ export default class App extends Component {
 
       
       {filterImages.map(image => 
-        <li key={images.indexOf(image)}>
+        <li className = 'list-item' key={images.indexOf(image)}>
         <img className = 'creature-images'src={image.url} alt=''/>
         <p className = 'image-info'>{image.title} { }
 
