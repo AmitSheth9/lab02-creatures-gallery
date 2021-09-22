@@ -23,7 +23,7 @@ export default class App extends Component {
     })
     return (
       <div>
-        <header>Pick a creature keyword from the dropdwon</header>
+        <header className = 'header' >Pick a creature keyword from the dropdwon</header>
     <select onChange={this.handleChange}>
 
     <option value='narwhal'>Narwhal</option>

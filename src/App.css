@@ -11,6 +11,10 @@
   margin-bottom: 5px;
   background-color: beige;
 }
+.header {
+  font-size: 30px;
+  color: brown;
+}
 .App {
   text-align: center;
 }
