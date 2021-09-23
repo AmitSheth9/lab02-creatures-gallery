@@ -3,59 +3,68 @@
 import React, { Component } from 'react'
 import images from './data.js';
 import './App.css';
-
+import Dropdown from './Dropdown.js';
+import ImageList from './ImageList.js';
 
 export default class App extends Component {
-  state = {keyword: ''}
+  state = {keyword: '',
+          horns: ''}
   
   handleChange = (e) => {
     console.log(e.target.value)
     this.setState({keyword: e.target.value})
-
  
   }
+
+  handleHornsChange = (e) => {
+    console.log(e.target.value)
+    this.setState({horns: e.target.value})
+  }
+
+
   render() {
-    const filterImages = images.filter(image => {
-      if(this.state.keyword === '')
+   const filterImages = images.filter(image => {
+     
+      if (this.state.keyword === '' && this.state.horns === '')
       return true;
+      else if(this.state.horns === '')
+      return (image.keyword=== this.state.keyword)
+      if (this.state.keyword === '' && this.state.horns !== '')
+      return (image.horns === Number(this.state.horns))
       else 
-      return (image.keyword === this.state.keyword)
-    })
+      return (image.keyword === this.state.keyword && image.horns === Number(this.state.horns))
+        })
+
+    const keywordAll = images.map(image => {
+      return image.keyword
+    });
+    let uniqueKeys = [];
+    for(let item of keywordAll) {
+      if(!uniqueKeys.includes(item)) {
+        uniqueKeys.push(item);
+      }
+    }
+
+    const hornsAll = images.map(image => {
+      return image.horns
+    });
+    let uniqueHorns = [];
+    for (let item of hornsAll) {
+      if(!uniqueHorns.includes(item)){
+        uniqueHorns.push(item);
+      }
+    }
     return (
       <div>
-        <header>Pick a creature keyword from the dropdwon</header>
-    <select onChange={this.handleChange}>
+        <header className = 'header' >Pick a creature keyword from the dropdwon</header>
+        <Dropdown handleChange = {this.handleChange}
+        options = {uniqueKeys}/>
+        <Dropdown handleChange = {this.handleHornsChange}
+        options = {uniqueHorns}/>
+        <ImageList images = {images}
+        filteredImages = {filterImages}/>
+        {console.log(this.state)}
 
-    <option value='narwhal'>Narwhal</option>
-    <option value='rhino'>Rhino</option>
-    <option value='unicorn'>Unicorn</option>
-    <option value='unilego'>Unilego</option>
-    <option value='triceratops'>Triceratops</option>
-    <option value='markhor'>Markhor</option>
-    <option value='mouflon'>Mouflon</option>
-    <option value='addax'>Addax</option>
-    <option value='chameleon'>Chameleon</option>
-    <option value='lizard'>Lizard</option>
-    <option value='dragon'>Dragon</option>
-    <option value=''>All</option>
-    </select>
-
-    <ul>
-
-      
-      {filterImages.map(image => 
-        <li className = 'list-item' key={images.indexOf(image)}>
-        <img className = 'creature-images'src={image.url} alt=''/>
-        <p className = 'image-info'>{image.title} { }
-
-        Description: {image.description} { }
-        Keyword: {image.keyword} { }
-        Horns: {image.horns}
-        </p>
-        </li>
-        
-      )};
-    </ul>
        </div>
      
     );
